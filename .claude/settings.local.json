@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:api.flightlogger.net)",
+      "WebFetch(domain:www.flightlogger.net)",
+      "Bash(composer install:*)",
+      "Bash(cat:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

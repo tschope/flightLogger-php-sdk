@@ -1,0 +1,47 @@
+{
+    "name": "tschope/flightlogger-php",
+    "description": "A PHP SDK for integrating with FlightLogger GraphQL API using Saloon",
+    "type": "library",
+    "keywords": ["flightlogger", "aviation", "flight", "api", "graphql", "saloon"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "tschope",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "saloonphp/saloon": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0",
+        "pestphp/pest": "^2.0",
+        "laravel/pint": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tschope\\FlightLogger\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tschope\\FlightLogger\\FlightLoggerServiceProvider"
+            ]
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tschope\\FlightLogger\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
