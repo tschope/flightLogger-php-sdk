@@ -16,7 +16,7 @@ class GetUsersRequest extends GraphQLRequest
     protected array $filters;
     protected array $fields;
 
-    public function __construct(array $filters = [], array $fields = null)
+    public function __construct(array $filters = [], ?array $fields = null)
     {
         $this->filters = $filters;
         $this->fields = $fields ?? $this->getDefaultFields();
@@ -24,7 +24,7 @@ class GetUsersRequest extends GraphQLRequest
 
     protected function getQuery(): string
     {
-        $fieldsString = implode("\n      ", $this->fields);
+        $fieldsString = $this->buildFieldsString($this->fields);
 
         return <<<GQL
         query Users(
@@ -33,6 +33,9 @@ class GetUsersRequest extends GraphQLRequest
           \$offset: Int
           \$orderBy: String
           \$orderDirection: String
+          \$roles: [UserRole!]
+          \$first: Int
+          \$after: String
         ) {
           users(
             accountId: \$accountId
@@ -40,7 +43,13 @@ class GetUsersRequest extends GraphQLRequest
             offset: \$offset
             orderBy: \$orderBy
             orderDirection: \$orderDirection
+            roles: \$roles
+            first: \$first
+            after: \$after
           ) {
+            nodes {
+              {$fieldsString}
+            }
             edges {
               node {
                 {$fieldsString}
@@ -49,6 +58,7 @@ class GetUsersRequest extends GraphQLRequest
             pageInfo {
               hasNextPage
               hasPreviousPage
+              endCursor
             }
             totalCount
           }

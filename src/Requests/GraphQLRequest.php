@@ -51,4 +51,38 @@ abstract class GraphQLRequest extends Request implements HasBody
             'variables' => $this->getVariables(),
         ];
     }
+
+    /**
+     * Build fields string, handling nested structures properly
+     *
+     * This method converts an array of field definitions into a properly formatted
+     * GraphQL fields string, supporting nested structures like "contact { email phone }".
+     *
+     * @param array $fields Array of field definitions
+     * @param int $indent Indentation level for nested fields
+     * @return string Formatted fields string for GraphQL query
+     */
+    protected function buildFieldsString(array $fields, int $indent = 0): string
+    {
+        $lines = [];
+        $indentation = str_repeat('  ', $indent);
+
+        foreach ($fields as $field) {
+            // Check if field contains nested structure (e.g., "contact { email }")
+            if (str_contains($field, '{')) {
+                // Split by opening brace
+                $parts = explode('{', $field, 2);
+                $fieldName = trim($parts[0]);
+                $nestedContent = trim(str_replace('}', '', $parts[1]));
+
+                $lines[] = $indentation . $fieldName . ' {';
+                $lines[] = $indentation . '  ' . $nestedContent;
+                $lines[] = $indentation . '}';
+            } else {
+                $lines[] = $indentation . $field;
+            }
+        }
+
+        return implode("\n", $lines);
+    }
 }

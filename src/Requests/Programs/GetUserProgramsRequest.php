@@ -24,7 +24,7 @@ class GetUserProgramsRequest extends GraphQLRequest
 
     protected function getQuery(): string
     {
-        $fieldsString = implode("\n            ", $this->fields);
+        $fieldsString = $this->buildFieldsString($this->fields);
 
         return <<<GQL
         query UserPrograms(
