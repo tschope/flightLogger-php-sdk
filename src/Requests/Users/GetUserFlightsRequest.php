@@ -125,7 +125,24 @@ class GetUserFlightsRequest extends GraphQLRequest
             'departureAirport { id name }',
             'arrivalAirport { id name }',
             'landings { __typename ... on Landing { id isArrival landingType landingTypeCount nightLanding } }',
-            'activityRegistration { __typename ... on Training { id name instructor { id firstName lastName } } ... on Rental { id } ... on Operation { id pic { id firstName lastName } } }',
+            'activityRegistration {
+              __typename
+              ... on Training {
+                id
+                name
+                instructor { id firstName lastName }
+                student { id firstName lastName }
+              }
+              ... on Rental {
+                id
+                renter { id firstName lastName }
+              }
+              ... on Operation {
+                id
+                pic { id firstName lastName }
+                crew { id firstName lastName }
+              }
+            }',
         ];
     }
 }
