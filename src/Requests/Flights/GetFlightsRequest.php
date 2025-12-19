@@ -80,37 +80,37 @@ class GetFlightsRequest extends GraphQLRequest
             'landing',
             'aircraft {
               id
-              registration
               model
-              type
+              callSign
+              aircraftClass
+              aircraftType
+              defaultEngineType
             }',
             'departureAirport {
-              icao
+              id
               name
             }',
             'arrivalAirport {
-              icao
+              id
               name
             }',
-            'primaryLog {
-              id
-              user {
+            'activityRegistration {
+              __typename
+              ... on Training {
                 id
-                firstName
-                lastName
-                email
+                name
+                instructor { id firstName lastName }
+                student { id firstName lastName }
               }
-              role
-            }',
-            'secondaryLog {
-              id
-              user {
+              ... on Rental {
                 id
-                firstName
-                lastName
-                email
+                renter { id firstName lastName }
               }
-              role
+              ... on Operation {
+                id
+                pic { id firstName lastName }
+                crew { id firstName lastName }
+              }
             }',
             'daySeconds',
             'nightSeconds',
