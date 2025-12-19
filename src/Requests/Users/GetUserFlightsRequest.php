@@ -104,34 +104,28 @@ class GetUserFlightsRequest extends GraphQLRequest
     {
         return [
             'id',
+            'flightType',
             'offBlock',
             'onBlock',
             'takeoff',
             'landing',
-            'aircraft {
-              callSign
-              model
-            }',
-            'departureAirport {
-              name
-            }',
-            'arrivalAirport {
-              name
-            }',
-            'primaryLog {
-              user {
-                id
-                firstName
-                lastName
-              }
-            }',
-            'secondaryLog {
-              user {
-                id
-                firstName
-                lastName
-              }
-            }',
+            'atSeconds',
+            'ifSeconds',
+            'ifrSeconds',
+            'vfrSeconds',
+            'daySeconds',
+            'nightSeconds',
+            'localSeconds',
+            'crossCountrySeconds',
+            'pilotFlyingSeconds',
+            'pilotMonitoringSeconds',
+            'timerStartSeconds',
+            'timerFinishSeconds',
+            'aircraft { id model callSign aircraftClass aircraftType defaultEngineType }',
+            'departureAirport { id name }',
+            'arrivalAirport { id name }',
+            'landings { __typename ... on Landing { id isArrival landingType landingTypeCount nightLanding } }',
+            'activityRegistration { __typename ... on Training { id name instructor { id firstName lastName } } ... on Rental { id } ... on Operation { id pic { id firstName lastName } } }',
         ];
     }
 }
