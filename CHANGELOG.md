@@ -4,6 +4,28 @@ All notable changes to `flightlogger-php` will be documented in this file.
 
 ## [Unreleased]
 
+## [1.3.0] - 2024-12-19
+
+### Added
+- **GetUserFlightsRequest**: New query endpoint to retrieve flights for a specific user
+  - Support for user-specific flight filtering (from, to, all, last, first)
+  - Customizable flight fields with sensible defaults
+  - Includes aircraft, airport, and crew information
+  - Full pagination support
+
+### Fixed
+- **buildFieldsString()**: Improved handling of nested GraphQL structures
+  - Better detection of complete nested field structures (containing both `{` and `}`)
+  - Fixed formatting for fields with complex nested objects
+  - Maintains backward compatibility with legacy field definitions
+
+## [1.2.0] - 2024-11-15
+
+### Changed
+- **Standardized Field String Building**: Moved `buildFieldsString()` method to base `GraphQLRequest` class
+- All GraphQL list request classes now use unified field formatting logic
+- Enhanced pagination support across all list queries
+
 ## [1.1.0] - 2024-11-14
 
 ### Added - Laravel Integration ✨

@@ -68,16 +68,21 @@ abstract class GraphQLRequest extends Request implements HasBody
         $indentation = str_repeat('  ', $indent);
 
         foreach ($fields as $field) {
-            // Check if field contains nested structure (e.g., "contact { email }")
+            // Check if field contains nested structure
             if (str_contains($field, '{')) {
-                // Split by opening brace
-                $parts = explode('{', $field, 2);
-                $fieldName = trim($parts[0]);
-                $nestedContent = trim(str_replace('}', '', $parts[1]));
+                // If field already has complete structure (contains both { and }), use it as-is
+                if (str_contains($field, '}')) {
+                    $lines[] = $indentation . $field;
+                } else {
+                    // Legacy handling for incomplete structures
+                    $parts = explode('{', $field, 2);
+                    $fieldName = trim($parts[0]);
+                    $nestedContent = trim(str_replace('}', '', $parts[1]));
 
-                $lines[] = $indentation . $fieldName . ' {';
-                $lines[] = $indentation . '  ' . $nestedContent;
-                $lines[] = $indentation . '}';
+                    $lines[] = $indentation . $fieldName . ' {';
+                    $lines[] = $indentation . '  ' . $nestedContent;
+                    $lines[] = $indentation . '}';
+                }
             } else {
                 $lines[] = $indentation . $field;
             }
