@@ -14,9 +14,10 @@ use Tschope\FlightLogger\Requests\GraphQLRequest;
 class FetchJobRequest extends GraphQLRequest
 {
     protected string $jobId;
+
     protected array $fields;
 
-    public function __construct(string $jobId, array $fields = null)
+    public function __construct(string $jobId, ?array $fields = null)
     {
         $this->jobId = $jobId;
         $this->fields = $fields ?? $this->getDefaultFields();

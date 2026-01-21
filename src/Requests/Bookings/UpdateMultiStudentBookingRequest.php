@@ -9,6 +9,7 @@ use Tschope\FlightLogger\Requests\GraphQLMutation;
 class UpdateMultiStudentBookingRequest extends GraphQLMutation
 {
     protected string $id;
+
     protected array $booking;
 
     public function __construct(string $id, array $booking)
@@ -19,9 +20,9 @@ class UpdateMultiStudentBookingRequest extends GraphQLMutation
 
     protected function getMutation(): string
     {
-        return <<<GQL
-        mutation UpdateMultiStudentBooking(\$id: Id!, \$booking: MultiStudentBookingInput!) {
-          updateMultiStudentBooking(id: \$id, booking: \$booking) {
+        return <<<'GQL'
+        mutation UpdateMultiStudentBooking($id: Id!, $booking: MultiStudentBookingInput!) {
+          updateMultiStudentBooking(id: $id, booking: $booking) {
             id
             from
             to

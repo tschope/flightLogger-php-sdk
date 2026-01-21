@@ -22,9 +22,9 @@ class UpdateMyFlightLoggerRequest extends GraphQLMutation
 
     protected function getMutation(): string
     {
-        return <<<GQL
-        mutation UpdateMyFlightLogger(\$data: MyFlightLoggerInput!) {
-          myFlightLogger(data: \$data) {
+        return <<<'GQL'
+        mutation UpdateMyFlightLogger($data: MyFlightLoggerInput!) {
+          myFlightLogger(data: $data) {
             id
             settings
             preferences

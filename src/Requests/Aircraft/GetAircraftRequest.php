@@ -14,9 +14,10 @@ use Tschope\FlightLogger\Requests\GraphQLRequest;
 class GetAircraftRequest extends GraphQLRequest
 {
     protected array $filters;
+
     protected array $fields;
 
-    public function __construct(array $filters = [], array $fields = null)
+    public function __construct(array $filters = [], ?array $fields = null)
     {
         $this->filters = $filters;
         $this->fields = $fields ?? $this->getDefaultFields();

@@ -22,9 +22,9 @@ class DeleteBookingsRequest extends GraphQLMutation
 
     protected function getMutation(): string
     {
-        return <<<GQL
-        mutation DeleteBookings(\$ids: [Id!]!) {
-          deleteBookings(ids: \$ids) {
+        return <<<'GQL'
+        mutation DeleteBookings($ids: [Id!]!) {
+          deleteBookings(ids: $ids) {
             id
           }
         }

@@ -14,6 +14,7 @@ use Tschope\FlightLogger\Requests\GraphQLMutation;
 class UpdateUserRequest extends GraphQLMutation
 {
     protected string $id;
+
     protected array $user;
 
     public function __construct(string $id, array $user)
@@ -24,9 +25,9 @@ class UpdateUserRequest extends GraphQLMutation
 
     protected function getMutation(): string
     {
-        return <<<GQL
-        mutation UpdateUser(\$id: Id!, \$user: UserInput!) {
-          updateUser(id: \$id, user: \$user) {
+        return <<<'GQL'
+        mutation UpdateUser($id: Id!, $user: UserInput!) {
+          updateUser(id: $id, user: $user) {
             id
             firstName
             lastName

@@ -15,7 +15,7 @@ class GetVersionsRequest extends GraphQLRequest
 {
     protected array $fields;
 
-    public function __construct(array $fields = null)
+    public function __construct(?array $fields = null)
     {
         $this->fields = $fields ?? $this->getDefaultFields();
     }

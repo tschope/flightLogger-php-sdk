@@ -22,9 +22,9 @@ class CreateUserRequest extends GraphQLMutation
 
     protected function getMutation(): string
     {
-        return <<<GQL
-        mutation CreateUser(\$user: UserInput!) {
-          createUser(user: \$user) {
+        return <<<'GQL'
+        mutation CreateUser($user: UserInput!) {
+          createUser(user: $user) {
             id
             firstName
             lastName

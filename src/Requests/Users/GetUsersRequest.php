@@ -14,6 +14,7 @@ use Tschope\FlightLogger\Requests\GraphQLRequest;
 class GetUsersRequest extends GraphQLRequest
 {
     protected array $filters;
+
     protected array $fields;
 
     public function __construct(array $filters = [], ?array $fields = null)

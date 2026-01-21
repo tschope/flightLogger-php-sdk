@@ -14,6 +14,7 @@ use Tschope\FlightLogger\Requests\GraphQLMutation;
 class UpdateClassTheoryBookingRequest extends GraphQLMutation
 {
     protected string $id;
+
     protected array $booking;
 
     public function __construct(string $id, array $booking)
@@ -24,9 +25,9 @@ class UpdateClassTheoryBookingRequest extends GraphQLMutation
 
     protected function getMutation(): string
     {
-        return <<<GQL
-        mutation UpdateClassTheoryBooking(\$id: Id!, \$booking: ClassTheoryBookingInput!) {
-          updateClassTheoryBooking(id: \$id, booking: \$booking) {
+        return <<<'GQL'
+        mutation UpdateClassTheoryBooking($id: Id!, $booking: ClassTheoryBookingInput!) {
+          updateClassTheoryBooking(id: $id, booking: $booking) {
             id
             from
             to

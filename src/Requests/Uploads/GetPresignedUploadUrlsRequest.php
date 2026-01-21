@@ -14,9 +14,10 @@ use Tschope\FlightLogger\Requests\GraphQLRequest;
 class GetPresignedUploadUrlsRequest extends GraphQLRequest
 {
     protected array $files;
+
     protected array $fields;
 
-    public function __construct(array $files, array $fields = null)
+    public function __construct(array $files, ?array $fields = null)
     {
         $this->files = $files;
         $this->fields = $fields ?? $this->getDefaultFields();

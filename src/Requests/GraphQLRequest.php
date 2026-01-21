@@ -58,8 +58,8 @@ abstract class GraphQLRequest extends Request implements HasBody
      * This method converts an array of field definitions into a properly formatted
      * GraphQL fields string, supporting nested structures like "contact { email phone }".
      *
-     * @param array $fields Array of field definitions
-     * @param int $indent Indentation level for nested fields
+     * @param  array  $fields  Array of field definitions
+     * @param  int  $indent  Indentation level for nested fields
      * @return string Formatted fields string for GraphQL query
      */
     protected function buildFieldsString(array $fields, int $indent = 0): string
@@ -72,19 +72,19 @@ abstract class GraphQLRequest extends Request implements HasBody
             if (str_contains($field, '{')) {
                 // If field already has complete structure (contains both { and }), use it as-is
                 if (str_contains($field, '}')) {
-                    $lines[] = $indentation . $field;
+                    $lines[] = $indentation.$field;
                 } else {
                     // Legacy handling for incomplete structures
                     $parts = explode('{', $field, 2);
                     $fieldName = trim($parts[0]);
                     $nestedContent = trim(str_replace('}', '', $parts[1]));
 
-                    $lines[] = $indentation . $fieldName . ' {';
-                    $lines[] = $indentation . '  ' . $nestedContent;
-                    $lines[] = $indentation . '}';
+                    $lines[] = $indentation.$fieldName.' {';
+                    $lines[] = $indentation.'  '.$nestedContent;
+                    $lines[] = $indentation.'}';
                 }
             } else {
-                $lines[] = $indentation . $field;
+                $lines[] = $indentation.$field;
             }
         }
 

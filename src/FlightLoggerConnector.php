@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tschope\FlightLogger;
 
+use RuntimeException;
 use Saloon\Http\Connector;
 use Saloon\Traits\Plugins\AcceptsJson;
-use RuntimeException;
 
 /**
  * FlightLogger API Connector
@@ -22,7 +22,8 @@ class FlightLoggerConnector extends Connector
     /**
      * Create a new FlightLogger connector instance
      *
-     * @param string|null $apiToken API token (optional if FLIGHTLOGGER_API_TOKEN env var is set)
+     * @param  string|null  $apiToken  API token (optional if FLIGHTLOGGER_API_TOKEN env var is set)
+     *
      * @throws RuntimeException if no token is provided and env var is not set
      */
     public function __construct(?string $apiToken = null)
@@ -33,8 +34,6 @@ class FlightLoggerConnector extends Connector
     /**
      * Resolve the API token from parameter or environment
      *
-     * @param string|null $apiToken
-     * @return string
      * @throws RuntimeException
      */
     protected function resolveApiToken(?string $apiToken): string
@@ -59,7 +58,7 @@ class FlightLoggerConnector extends Connector
         }
 
         throw new RuntimeException(
-            'FlightLogger API token not found. Please provide a token via constructor, ' .
+            'FlightLogger API token not found. Please provide a token via constructor, '.
             'set FLIGHTLOGGER_API_TOKEN environment variable, or configure it in config/flightlogger.php'
         );
     }
@@ -78,7 +77,7 @@ class FlightLoggerConnector extends Connector
     protected function defaultHeaders(): array
     {
         return [
-            'Authorization' => 'Bearer ' . $this->apiToken,
+            'Authorization' => 'Bearer '.$this->apiToken,
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
         ];

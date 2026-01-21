@@ -22,9 +22,9 @@ class CreateTypeQuestionnaireBookingRequest extends GraphQLMutation
 
     protected function getMutation(): string
     {
-        return <<<GQL
-        mutation CreateTypeQuestionnaireBooking(\$booking: TypeQuestionnaireBookingInput!) {
-          createTypeQuestionnaireBooking(booking: \$booking) {
+        return <<<'GQL'
+        mutation CreateTypeQuestionnaireBooking($booking: TypeQuestionnaireBookingInput!) {
+          createTypeQuestionnaireBooking(booking: $booking) {
             id
             from
             to

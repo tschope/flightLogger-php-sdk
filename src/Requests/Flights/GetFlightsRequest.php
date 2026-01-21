@@ -14,9 +14,10 @@ use Tschope\FlightLogger\Requests\GraphQLRequest;
 class GetFlightsRequest extends GraphQLRequest
 {
     protected array $filters;
+
     protected array $fields;
 
-    public function __construct(array $filters = [], array $fields = null)
+    public function __construct(array $filters = [], ?array $fields = null)
     {
         $this->filters = $filters;
         $this->fields = $fields ?? $this->getDefaultFields();
@@ -78,39 +79,42 @@ class GetFlightsRequest extends GraphQLRequest
             'onBlock',
             'takeoff',
             'landing',
+            'calculatedFuelUsage',
+            'departureFuel',
+            'departureFuelAdded',
             'aircraft {
               id
+              registration
               model
-              callSign
-              aircraftClass
-              aircraftType
-              defaultEngineType
+              type
             }',
             'departureAirport {
-              id
+              icao
               name
             }',
             'arrivalAirport {
-              id
+              icao
               name
             }',
-            'activityRegistration {
-              __typename
-              ... on Training {
+            'primaryLog {
+              id
+              user {
                 id
-                name
-                instructor { id firstName lastName }
-                student { id firstName lastName }
+                firstName
+                lastName
+                email
               }
-              ... on Rental {
+              role
+            }',
+            'secondaryLog {
+              id
+              user {
                 id
-                renter { id firstName lastName }
+                firstName
+                lastName
+                email
               }
-              ... on Operation {
-                id
-                pic { id firstName lastName }
-                crew { id firstName lastName }
-              }
+              role
             }',
             'daySeconds',
             'nightSeconds',

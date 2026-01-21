@@ -14,9 +14,10 @@ use Tschope\FlightLogger\Requests\GraphQLRequest;
 class GetUserRequest extends GraphQLRequest
 {
     protected string $userId;
+
     protected array $fields;
 
-    public function __construct(string $userId, array $fields = null)
+    public function __construct(string $userId, ?array $fields = null)
     {
         $this->userId = $userId;
         $this->fields = $fields ?? $this->getDefaultFields();

@@ -22,9 +22,9 @@ class CancelBookingsRequest extends GraphQLMutation
 
     protected function getMutation(): string
     {
-        return <<<GQL
-        mutation CancelBookings(\$ids: [Id!]!) {
-          cancelBookings(ids: \$ids) {
+        return <<<'GQL'
+        mutation CancelBookings($ids: [Id!]!) {
+          cancelBookings(ids: $ids) {
             id
           }
         }

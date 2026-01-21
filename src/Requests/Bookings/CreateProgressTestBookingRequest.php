@@ -22,9 +22,9 @@ class CreateProgressTestBookingRequest extends GraphQLMutation
 
     protected function getMutation(): string
     {
-        return <<<GQL
-        mutation CreateProgressTestBooking(\$booking: ProgressTestBookingInput!) {
-          createProgressTestBooking(booking: \$booking) {
+        return <<<'GQL'
+        mutation CreateProgressTestBooking($booking: ProgressTestBookingInput!) {
+          createProgressTestBooking(booking: $booking) {
             id
             from
             to

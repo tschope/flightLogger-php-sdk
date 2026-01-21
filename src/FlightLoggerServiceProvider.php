@@ -19,13 +19,13 @@ class FlightLoggerServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/flightlogger.php',
+            __DIR__.'/../config/flightlogger.php',
             'flightlogger'
         );
 
         // Register the connector as a singleton
         $this->app->singleton(FlightLoggerConnector::class, function ($app) {
-            return new FlightLoggerConnector();
+            return new FlightLoggerConnector;
         });
     }
 
@@ -37,7 +37,7 @@ class FlightLoggerServiceProvider extends ServiceProvider
         // Publish configuration file
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/flightlogger.php' => config_path('flightlogger.php'),
+                __DIR__.'/../config/flightlogger.php' => config_path('flightlogger.php'),
             ], 'flightlogger-config');
         }
     }

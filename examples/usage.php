@@ -1,13 +1,12 @@
 <?php
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__.'/vendor/autoload.php';
 
 use Tschope\FlightLogger\FlightLoggerConnector;
-use Tschope\FlightLogger\Requests\Users\GetUsersRequest;
-use Tschope\FlightLogger\Requests\Users\GetUserRequest;
 use Tschope\FlightLogger\Requests\Classes\GetClassesRequest;
 use Tschope\FlightLogger\Requests\Flights\GetFlightsRequest;
 use Tschope\FlightLogger\Requests\Trainings\GetTrainingsRequest;
+use Tschope\FlightLogger\Requests\Users\GetUsersRequest;
 
 // Initialize the connector
 // Option 1: Pass token directly
@@ -15,7 +14,7 @@ use Tschope\FlightLogger\Requests\Trainings\GetTrainingsRequest;
 
 // Option 2: Use environment variable FLIGHTLOGGER_API_TOKEN
 // The connector will automatically read from .env or environment
-$connector = new FlightLoggerConnector();
+$connector = new FlightLoggerConnector;
 
 echo "=== FlightLogger PHP SDK - Examples ===\n\n";
 
@@ -24,7 +23,7 @@ echo "1. Getting users...\n";
 try {
     $request = new GetUsersRequest([
         'limit' => 5,
-        'orderBy' => 'firstName'
+        'orderBy' => 'firstName',
     ]);
 
     $response = $connector->send($request);
@@ -33,14 +32,14 @@ try {
         $data = $response->json();
         $users = $data['data']['users']['edges'] ?? [];
 
-        echo "Found " . count($users) . " users:\n";
+        echo 'Found '.count($users)." users:\n";
         foreach ($users as $edge) {
             $user = $edge['node'];
             echo "  - {$user['firstName']} {$user['lastName']} ({$user['email']})\n";
         }
     }
 } catch (Exception $e) {
-    echo "Error: " . $e->getMessage() . "\n";
+    echo 'Error: '.$e->getMessage()."\n";
 }
 
 echo "\n";
@@ -49,7 +48,7 @@ echo "\n";
 echo "2. Getting classes...\n";
 try {
     $request = new GetClassesRequest([
-        'first' => 5
+        'first' => 5,
     ]);
 
     $response = $connector->send($request);
@@ -58,14 +57,14 @@ try {
         $data = $response->json();
         $classes = $data['data']['classes']['edges'] ?? [];
 
-        echo "Found " . count($classes) . " classes:\n";
+        echo 'Found '.count($classes)." classes:\n";
         foreach ($classes as $edge) {
             $class = $edge['node'];
-            echo "  - {$class['name']} (" . count($class['users'] ?? []) . " students)\n";
+            echo "  - {$class['name']} (".count($class['users'] ?? [])." students)\n";
         }
     }
 } catch (Exception $e) {
-    echo "Error: " . $e->getMessage() . "\n";
+    echo 'Error: '.$e->getMessage()."\n";
 }
 
 echo "\n";
@@ -75,7 +74,7 @@ echo "3. Getting recent flights...\n";
 try {
     $request = new GetFlightsRequest([
         'first' => 5,
-        'from' => date('Y-m-d', strtotime('-30 days')) . 'T00:00:00Z'
+        'from' => date('Y-m-d', strtotime('-30 days')).'T00:00:00Z',
     ]);
 
     $response = $connector->send($request);
@@ -84,7 +83,7 @@ try {
         $data = $response->json();
         $flights = $data['data']['flights']['edges'] ?? [];
 
-        echo "Found " . count($flights) . " flights:\n";
+        echo 'Found '.count($flights)." flights:\n";
         foreach ($flights as $edge) {
             $flight = $edge['node'];
             $registration = $flight['aircraft']['registration'] ?? 'N/A';
@@ -92,7 +91,7 @@ try {
         }
     }
 } catch (Exception $e) {
-    echo "Error: " . $e->getMessage() . "\n";
+    echo 'Error: '.$e->getMessage()."\n";
 }
 
 echo "\n";
@@ -114,7 +113,7 @@ try {
             'student {
               firstName
               lastName
-            }'
+            }',
         ]
     );
 
@@ -124,16 +123,16 @@ try {
         $data = $response->json();
         $trainings = $data['data']['trainings']['edges'] ?? [];
 
-        echo "Found " . count($trainings) . " trainings:\n";
+        echo 'Found '.count($trainings)." trainings:\n";
         foreach ($trainings as $edge) {
             $training = $edge['node'];
             $hours = ($training['totalSeconds'] ?? 0) / 3600;
-            echo "  - {$training['name']} - {$training['status']} (" .
-                 number_format($hours, 2) . "h)\n";
+            echo "  - {$training['name']} - {$training['status']} (".
+                 number_format($hours, 2)."h)\n";
         }
     }
 } catch (Exception $e) {
-    echo "Error: " . $e->getMessage() . "\n";
+    echo 'Error: '.$e->getMessage()."\n";
 }
 
 echo "\n";
@@ -149,14 +148,14 @@ try {
         $data = $response->json();
         $pageInfo = $data['data']['users']['pageInfo'] ?? [];
 
-        echo "First page - Has next page: " .
-             ($pageInfo['hasNextPage'] ? 'Yes' : 'No') . "\n";
+        echo 'First page - Has next page: '.
+             ($pageInfo['hasNextPage'] ? 'Yes' : 'No')."\n";
 
         if ($pageInfo['hasNextPage']) {
             // Second page
             $nextRequest = new GetUsersRequest([
                 'first' => 2,
-                'after' => $pageInfo['endCursor']
+                'after' => $pageInfo['endCursor'],
             ]);
             $nextResponse = $connector->send($nextRequest);
 
@@ -166,7 +165,7 @@ try {
         }
     }
 } catch (Exception $e) {
-    echo "Error: " . $e->getMessage() . "\n";
+    echo 'Error: '.$e->getMessage()."\n";
 }
 
 echo "\n=== Examples completed ===\n";
